@@ -10,7 +10,7 @@ import javax.jms.TextMessage;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 
-public class Producer2 {
+public class Producer {
 
     public static void main(String[] args){
         try {
@@ -18,7 +18,7 @@ public class Producer2 {
             Connection connection = connectionFactory.createConnection();
             connection.start();
             Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-            Destination destination = session.createQueue("TEST.RADLE");
+            Destination destination = session.createQueue("TEST.QUEUE");
             MessageProducer producer = session.createProducer(destination);
             producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 
@@ -28,7 +28,7 @@ public class Producer2 {
             // send the JMS message
             producer.send(message);
             // returned JMS message ID must be logged
-            System.out.println("JMS message ID"+message.getJMSMessageID());
+            System.out.println("JMS message ID: "+message.getJMSMessageID());
 
             session.close();
             connection.close();
